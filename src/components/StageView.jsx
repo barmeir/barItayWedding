@@ -1,0 +1,102 @@
+import { useState } from 'react';
+import { motion } from 'framer-motion';
+import { ArrowRight, Lightbulb, Sparkles } from 'lucide-react';
+import GlassCard from './GlassCard.jsx';
+import HintModal from './HintModal.jsx';
+import { isCorrectAnswer } from '../data/stages.js';
+
+const ACCENT_RING = {
+  cyan: 'shadow-[0_0_36px_rgba(34,211,238,0.45)]',
+  magenta: 'shadow-[0_0_36px_rgba(244,114,182,0.45)]',
+  violet: 'shadow-[0_0_36px_rgba(167,139,250,0.45)]',
+  gold: 'shadow-[0_0_36px_rgba(253,230,138,0.45)]',
+};
+
+export default function StageView({ stage, onCorrect, onWrong }) {
+  const [value, setValue] = useState('');
+  const [shaking, setShaking] = useState(false);
+  const [hintOpen, setHintOpen] = useState(false);
+  const [submitting, setSubmitting] = useState(false);
+
+  const accent = ACCENT_RING[stage.accent] || ACCENT_RING.violet;
+
+  const submit = (e) => {
+    e.preventDefault();
+    if (submitting) return;
+    setSubmitting(true);
+
+    if (isCorrectAnswer(stage, value)) {
+      onCorrect();
+      // value cleared by parent re-mount
+    } else {
+      setShaking(true);
+      onWrong();
+      setTimeout(() => setShaking(false), 600);
+    }
+    setSubmitting(false);
+  };
+
+  return (
+    <>
+      <motion.div
+        key={stage.id}
+        className={shaking ? 'animate-shake' : ''}
+        initial={{ opacity: 0, y: 30 }}
+        animate={{ opacity: 1, y: 0 }}
+        exit={{ opacity: 0, y: -20 }}
+        transition={{ duration: 0.5, ease: 'easeOut' }}
+      >
+        <GlassCard strong className={`relative overflow-hidden ${accent}`}>
+          <div className="flex items-center gap-2 mb-4 text-white/60 text-xs uppercase tracking-[0.3em]">
+            <Sparkles className="w-3.5 h-3.5" />
+            Stage {stage.id} of 12
+          </div>
+
+          <h2 className="font-display text-3xl sm:text-4xl text-white mb-4">
+            {stage.title}
+          </h2>
+
+          <p className="text-white/85 leading-relaxed text-lg mb-6">
+            {stage.riddle}
+          </p>
+
+          <form onSubmit={submit} className="space-y-3">
+            <input
+              type="text"
+              autoFocus
+              autoComplete="off"
+              autoCorrect="off"
+              autoCapitalize="off"
+              spellCheck="false"
+              className="input-glass text-lg"
+              placeholder="Your answer…"
+              value={value}
+              onChange={(e) => setValue(e.target.value)}
+            />
+
+            <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+              <button
+                type="button"
+                className="btn-ghost"
+                onClick={() => setHintOpen(true)}
+              >
+                <Lightbulb className="w-4 h-4" />
+                Need a hint?
+              </button>
+
+              <button type="submit" className="btn-primary" disabled={!value.trim()}>
+                Submit <ArrowRight className="w-4 h-4" />
+              </button>
+            </div>
+          </form>
+        </GlassCard>
+      </motion.div>
+
+      <HintModal
+        open={hintOpen}
+        onClose={() => setHintOpen(false)}
+        hints={stage.hints}
+      />
+    </>
+  );
+}
