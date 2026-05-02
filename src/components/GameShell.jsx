@@ -1,6 +1,6 @@
 import { useEffect, useMemo, useState } from 'react';
 import { AnimatePresence, motion } from 'framer-motion';
-import { LogOut } from 'lucide-react';
+import { ChevronRight, LogOut } from 'lucide-react';
 import StageView from './StageView.jsx';
 import MemoryOverlay from './MemoryOverlay.jsx';
 import Finale from './Finale.jsx';
@@ -16,23 +16,36 @@ const WRONG_MESSAGES = [
   'כמעט! סמכו על האינטואיציה.',
 ];
 
-export default function GameShell({ progress, onLogout, onAdvance, onFinish }) {
+export default function GameShell({ progress, onLogout, onAdvance, onFinish, onBackToVideo }) {
   const totalStages = stages.length;
-  const currentIdx = Math.min(progress.current_stage, totalStages); // 0..N
+  const currentIdx = Math.min(progress.current_stage, totalStages);
   const isFinished =
     Boolean(progress.finished_at) ||
     (progress.completed_stages && progress.completed_stages.length >= totalStages);
 
+  const [viewIdx, setViewIdx] = useState(currentIdx);
   const [overlayStage, setOverlayStage] = useState(null);
   const [toast, setToast] = useState('');
 
-  const stage = useMemo(() => stages[currentIdx], [currentIdx]);
+  // Keep viewIdx at the frontier when new stages are unlocked
+  useEffect(() => {
+    setViewIdx(currentIdx);
+  }, [currentIdx]);
+
+  const stage = useMemo(() => stages[viewIdx], [viewIdx]);
+  const isViewingActive = viewIdx === currentIdx;
 
   useEffect(() => {
-    if (isFinished) {
-      onFinish();
-    }
+    if (isFinished) onFinish();
   }, [isFinished, onFinish]);
+
+  const handleBack = () => {
+    if (viewIdx > 0) {
+      setViewIdx((v) => v - 1);
+    } else {
+      onBackToVideo();
+    }
+  };
 
   const handleCorrect = () => {
     if (!stage) return;
@@ -47,9 +60,16 @@ export default function GameShell({ progress, onLogout, onAdvance, onFinish }) {
   const continueFromOverlay = async () => {
     const justFinished = overlayStage;
     setOverlayStage(null);
-    if (justFinished) {
-      await onAdvance(justFinished.id); // advances current_stage
+    if (!justFinished) return;
+    if (isViewingActive) {
+      await onAdvance(justFinished.id);
+    } else {
+      setViewIdx((v) => Math.min(v + 1, currentIdx));
     }
+  };
+
+  const backFromOverlay = () => {
+    setOverlayStage(null);
   };
 
   if (isFinished) {
@@ -64,6 +84,14 @@ export default function GameShell({ progress, onLogout, onAdvance, onFinish }) {
       {/* Header */}
       <div className="flex items-center justify-between mb-5">
         <div className="flex items-center gap-3">
+          <button
+            onClick={handleBack}
+            className="btn-ghost"
+            aria-label="חזרה"
+            title="חזרה"
+          >
+            <ChevronRight className="w-4 h-4" />
+          </button>
           <CoupleAvatar size="sm" />
           <div>
             <p className="text-xs tracking-[0.3em] text-white/50">שלום {progress.name},</p>
@@ -107,7 +135,7 @@ export default function GameShell({ progress, onLogout, onAdvance, onFinish }) {
           <AnimatePresence mode="wait">
             {stage && (
               <StageView
-                key={stage.id}
+                key={`${stage.id}-${viewIdx}`}
                 stage={stage}
                 onCorrect={handleCorrect}
                 onWrong={handleWrong}
@@ -121,6 +149,7 @@ export default function GameShell({ progress, onLogout, onAdvance, onFinish }) {
         stage={overlayStage}
         open={Boolean(overlayStage)}
         onContinue={continueFromOverlay}
+        onBack={backFromOverlay}
       />
 
       <Toast message={toast} />

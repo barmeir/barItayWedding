@@ -19,21 +19,24 @@ export default function StageView({ stage, onCorrect, onWrong }) {
   const [submitting, setSubmitting] = useState(false);
 
   const accent = ACCENT_RING[stage.accent] || ACCENT_RING.violet;
+  const isMultiChoice = Boolean(stage.options);
 
-  const submit = (e) => {
-    e.preventDefault();
+  const attempt = (answer) => {
     if (submitting) return;
     setSubmitting(true);
-
-    if (isCorrectAnswer(stage, value)) {
+    if (isCorrectAnswer(stage, answer)) {
       onCorrect();
-      // value cleared by parent re-mount
     } else {
       setShaking(true);
       onWrong();
       setTimeout(() => setShaking(false), 600);
     }
     setSubmitting(false);
+  };
+
+  const submit = (e) => {
+    e.preventDefault();
+    attempt(value);
   };
 
   return (
@@ -60,35 +63,61 @@ export default function StageView({ stage, onCorrect, onWrong }) {
             {stage.riddle}
           </p>
 
-          <form onSubmit={submit} className="space-y-3">
-            <input
-              type="text"
-              autoFocus
-              autoComplete="off"
-              autoCorrect="off"
-              autoCapitalize="off"
-              spellCheck="false"
-              className="input-glass text-lg"
-              placeholder="התשובה שלכם…"
-              value={value}
-              onChange={(e) => setValue(e.target.value)}
-            />
-
-            <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+          {isMultiChoice ? (
+            <div className="space-y-3">
+              <div className="grid grid-cols-1 gap-3">
+                {stage.options.map((opt) => (
+                  <button
+                    key={opt}
+                    type="button"
+                    className="btn-ghost w-full text-right justify-start px-4 py-3"
+                    onClick={() => attempt(opt)}
+                    disabled={submitting}
+                  >
+                    {opt}
+                  </button>
+                ))}
+              </div>
               <button
                 type="button"
-                className="btn-ghost"
+                className="btn-ghost w-full mt-1"
                 onClick={() => setHintOpen(true)}
               >
                 <Lightbulb className="w-4 h-4" />
                 צריכים רמז?
               </button>
-
-              <button type="submit" className="btn-primary" disabled={!value.trim()}>
-                <ArrowRight className="w-4 h-4 rotate-180" /> שליחה
-              </button>
             </div>
-          </form>
+          ) : (
+            <form onSubmit={submit} className="space-y-3">
+              <input
+                type="text"
+                autoFocus
+                autoComplete="off"
+                autoCorrect="off"
+                autoCapitalize="off"
+                spellCheck="false"
+                className="input-glass text-lg"
+                placeholder="התשובה שלכם…"
+                value={value}
+                onChange={(e) => setValue(e.target.value)}
+              />
+
+              <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+                <button
+                  type="button"
+                  className="btn-ghost"
+                  onClick={() => setHintOpen(true)}
+                >
+                  <Lightbulb className="w-4 h-4" />
+                  צריכים רמז?
+                </button>
+
+                <button type="submit" className="btn-primary" disabled={!value.trim()}>
+                  <ArrowRight className="w-4 h-4 rotate-180" /> שליחה
+                </button>
+              </div>
+            </form>
+          )}
         </GlassCard>
       </motion.div>
 

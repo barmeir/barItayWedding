@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { AnimatePresence, motion } from 'framer-motion';
-import { Sparkles } from 'lucide-react';
+import { ChevronRight, Sparkles } from 'lucide-react';
 
 const ACCENT_GRADIENTS = {
   cyan: 'from-cyan-300/40 via-sky-300/20 to-violet-300/40',
@@ -23,12 +23,20 @@ function Fallback({ accent = 'violet', title }) {
   );
 }
 
-export default function MemoryOverlay({ stage, open, onContinue }) {
+export default function MemoryOverlay({ stage, open, onContinue, onBack }) {
   const [imageBroken, setImageBroken] = useState(false);
 
   useEffect(() => {
     setImageBroken(false);
   }, [stage?.id, open]);
+
+  // Enter key to continue
+  useEffect(() => {
+    if (!open) return;
+    const handler = (e) => { if (e.key === 'Enter') onContinue(); };
+    window.addEventListener('keydown', handler);
+    return () => window.removeEventListener('keydown', handler);
+  }, [open, onContinue]);
 
   if (!stage) return null;
 
@@ -82,8 +90,11 @@ export default function MemoryOverlay({ stage, open, onContinue }) {
               </motion.div>
             </div>
 
-            <div className="p-5">
-              <button onClick={onContinue} className="btn-primary w-full">
+            <div className="p-5 flex gap-3">
+              <button onClick={onBack} className="btn-ghost flex-none">
+                <ChevronRight className="w-4 h-4" /> חזרה
+              </button>
+              <button onClick={onContinue} className="btn-primary flex-1">
                 להמשיך
               </button>
             </div>

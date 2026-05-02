@@ -1,13 +1,12 @@
 import { useState } from 'react';
 import { motion } from 'framer-motion';
-import { Heart, KeyRound, Phone, User } from 'lucide-react';
+import { Heart, KeyRound, User } from 'lucide-react';
 import GlassCard from './GlassCard.jsx';
 import CoupleAvatar from './CoupleAvatar.jsx';
 
 const EXPECTED_PASSWORD = (import.meta.env.VITE_LOGIN_PASSWORD || 'meir').toLowerCase();
 
 export default function LoginScreen({ onLogin, loading, error }) {
-  const [phone, setPhone] = useState('');
   const [name, setName] = useState('');
   const [password, setPassword] = useState('');
   const [localError, setLocalError] = useState('');
@@ -16,8 +15,8 @@ export default function LoginScreen({ onLogin, loading, error }) {
     e.preventDefault();
     setLocalError('');
 
-    if (!phone.trim() || !name.trim()) {
-      setLocalError('נא למלא טלפון ושם.');
+    if (!name.trim()) {
+      setLocalError('נא למלא שם.');
       return;
     }
     if (password.trim().toLowerCase() !== EXPECTED_PASSWORD) {
@@ -26,13 +25,11 @@ export default function LoginScreen({ onLogin, loading, error }) {
     }
 
     try {
-      await onLogin({ phone: phone.trim(), name: name.trim() });
+      await onLogin({ name: name.trim() });
     } catch {
       /* error surfaced by useGuest */
     }
   };
-
-  const submitDisabled = loading;
 
   return (
     <div className="relative mx-auto flex min-h-[100dvh] max-w-md flex-col justify-center px-5 py-10">
@@ -42,8 +39,6 @@ export default function LoginScreen({ onLogin, loading, error }) {
         transition={{ duration: 0.6 }}
         className="text-center mb-8"
       >
-
-        {/*float=true  When no value is provided in JSX, it defaults to true */}
         <CoupleAvatar size="lg" float glow className="mb-5" />
         <div className="inline-flex items-center gap-2 text-xs tracking-[0.3em] text-white/60 mb-3">
           <Heart className="w-3.5 h-3.5" /> קפריסין · אפריל 2026
@@ -56,23 +51,6 @@ export default function LoginScreen({ onLogin, loading, error }) {
 
       <GlassCard strong>
         <form onSubmit={submit} className="space-y-4">
-          <div>
-            <label className="text-xs tracking-widest text-white/60 mb-2 flex items-center gap-2">
-              <Phone className="w-3.5 h-3.5" /> טלפון
-            </label>
-            <input
-              type="tel"
-              inputMode="tel"
-              autoComplete="tel"
-              dir="ltr"
-              className="input-glass text-right"
-              placeholder="05x-xxxxxxx"
-              value={phone}
-              onChange={(e) => setPhone(e.target.value)}
-              required
-            />
-          </div>
-
           <div>
             <label className="text-xs tracking-widest text-white/60 mb-2 flex items-center gap-2">
               <User className="w-3.5 h-3.5" /> השם שלך
@@ -116,14 +94,14 @@ export default function LoginScreen({ onLogin, loading, error }) {
             </motion.p>
           )}
 
-          <button type="submit" className="btn-primary w-full" disabled={submitDisabled}>
+          <button type="submit" className="btn-primary w-full" disabled={loading}>
             {loading ? 'פותחים את השערים…' : 'לצאת למסע'}
           </button>
         </form>
       </GlassCard>
 
       <p className="mt-6 text-center text-xs text-white/40">
-       🤍   נוצר באהבה בר ואיתי    🤍
+        🤍   נוצר באהבה בר ואיתי    🤍
       </p>
     </div>
   );

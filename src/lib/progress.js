@@ -17,9 +17,8 @@ function writeLocal(map) {
   }
 }
 
-function defaultProgress(phone, name) {
+function defaultProgress(name) {
   return {
-    phone,
     name,
     current_stage: 0,
     completed_stages: [],
@@ -28,31 +27,29 @@ function defaultProgress(phone, name) {
   };
 }
 
-export async function loginAndLoad({ phone, name }) {
-  const cleanPhone = String(phone || '').trim();
+export async function loginAndLoad({ name }) {
   const cleanName = String(name || '').trim();
 
-  if (!cleanPhone || !cleanName) {
-    throw new Error('Phone and name are required.');
+  if (!cleanName) {
+    throw new Error('Name is required.');
   }
 
   const map = readLocal();
-  const existing = map[cleanPhone];
+  const existing = map[cleanName];
   if (existing) {
-    existing.name = cleanName;
-    map[cleanPhone] = existing;
+    map[cleanName] = existing;
     writeLocal(map);
     return existing;
   }
-  const fresh = defaultProgress(cleanPhone, cleanName);
-  map[cleanPhone] = fresh;
+  const fresh = defaultProgress(cleanName);
+  map[cleanName] = fresh;
   writeLocal(map);
   return fresh;
 }
 
 export async function saveProgress(progress) {
   const payload = {
-    phone: progress.phone,
+    name: progress.name,
     current_stage: progress.current_stage,
     completed_stages: progress.completed_stages,
     finished_at: progress.finished_at,
@@ -60,6 +57,6 @@ export async function saveProgress(progress) {
   };
 
   const map = readLocal();
-  map[progress.phone] = { ...progress, ...payload };
+  map[progress.name] = { ...progress, ...payload };
   writeLocal(map);
 }

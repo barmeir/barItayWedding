@@ -1,11 +1,8 @@
-// 12 placeholder stages in Hebrew. Replace `riddle`, `answers`, `hints`, `caption`,
-// and the corresponding `/publicimages/stage-XX.jpg` files when ready.
-//
-// `answers` is matched case-insensitively after trim. הוספו כמה ווריאנטים שתרצו.
+// `answers` is matched case-insensitively after trim. Add as many variants as you want.
+// For multiple-choice stages: set `options` (array of strings) and `correctAnswer` (string).
 // `accent` is one of: cyan, magenta, violet, gold (used for the stage tint).
 
 export const stages = [
-  
   {
     id: 1,
     title: 'ברוכים לקפריסין',
@@ -29,48 +26,28 @@ export const stages = [
     answers: ['אטלנטיס גרדנס', 'אטלנטיק גרדן', 'אטלנטיס גרדנס', 'אטלנטיס גרדן', 'atlantis', 'atlantis garden'],
     hints: [
       'אפלטון כתב עליה קודם +מקום בוטני.',
-       ' יש עיר מיתולוגית ששקעה בים + יש שם הרבה פרחים.',
-      'אטלנ_ _ _ “Garden”.',
+      ' יש עיר מיתולוגית ששקעה בים + יש שם הרבה פרחים.',
+      'אטלנ_ _ _ "Garden".',
     ],
     image: 'images/stage-02.png',
     caption: 'גן העיר האבודה 🌊',
     accent: 'violet',
   },
   {
-  id: 3,
-  title: 'סיפור ההיכרות',
-  riddle: 'איפה בר ואיתי הכירו?',
-  
-  options: [
-    'בחברת הייטק',
-    'בקבוצת פייסבוק',
-    'בפיקניק טבעוני קהילתי',
-    'דרך חברים של חברים'
-  ],
-
-  correctAnswer: 'בקבוצת פייסבוק',
-
-  hints: [
-    'הם נפגשו בעבודה?.',
-    'טבעוני טעים.',
-    'נכון ששניהם אוהבים פיקניקים.',
-  ],
-
-  image: 'images/stage-03.png',
-  caption: 'מקום המפגש של שני עולמות 💻',
-  accent: 'cyan',
-},
-  {
-    id: 13,
+    id: 3,
     title: 'סיפור ההיכרות',
-    riddle:
-      'איפה בר ואיתי הכירו?',
-    
-    answers: ['הייטק', 'high-tech', 'hightech', 'high tech', 'tech'],
+    riddle: 'איפה בר ואיתי הכירו?',
+    options: [
+      'בחברת הייטק',
+      'בקבוצת פייסבוק',
+      'בפיקניק טבעוני קהילתי',
+      'דרך חברים של חברים',
+    ],
+    correctAnswer: 'בקבוצת פייסבוק',
     hints: [
-      'הם נפגשו בעבודה.',
-      'מקלדות, קוד והרבה קפה.',
-      'מונח ישראלי נפוץ מאוד.',
+      'הם נפגשו בעבודה?.',
+      'טבעוני טעים.',
+      'נכון ששניהם אוהבים פיקניקים.',
     ],
     image: 'images/stage-03.png',
     caption: 'מקום המפגש של שני עולמות 💻',
@@ -178,7 +155,7 @@ export const stages = [
       'חמש אותיות בעברית.',
     ],
     image: 'images/stage-10.png',
-    caption: 'ציר זמן של “כן” גדול אחד 💍',
+    caption: 'ציר זמן של "כן" גדול אחד 💍',
     accent: 'violet',
   },
   {
@@ -200,12 +177,12 @@ export const stages = [
     id: 12,
     title: 'הישור האחרון',
     riddle:
-      'השלימו את המשפט: “שהאהבה שלכם תהיה אין סופית כמו הי׳׳׳ הקפריסאי.”',
+      'השלימו את המשפט: "שהאהבה שלכם תהיה אין סופית כמו הי׳׳׳ הקפריסאי."',
     answers: ['ים', 'sea'],
     hints: [
       'הסתכלו החוצה — כנראה תראו אותו.',
       'שתי אותיות בעברית.',
-      'מתחרז עם “עם”.',
+      'מתחרז עם "עם".',
     ],
     image: 'images/stage-12.png',
     caption: 'אל האופק ומעבר 🌅',
@@ -214,7 +191,10 @@ export const stages = [
 ];
 
 export function isCorrectAnswer(stage, input) {
+  if (stage.correctAnswer !== undefined) {
+    return String(input || '').trim() === String(stage.correctAnswer).trim();
+  }
   const cleaned = String(input || '').trim().toLowerCase();
   if (!cleaned) return false;
-  return stage.answers.some((a) => String(a).trim().toLowerCase() === cleaned);
+  return (stage.answers || []).some((a) => String(a).trim().toLowerCase() === cleaned);
 }

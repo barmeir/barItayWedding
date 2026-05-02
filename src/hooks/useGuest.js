@@ -25,12 +25,11 @@ export function useGuest() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
-  // Try to restore a session on mount.
   useEffect(() => {
     let cancelled = false;
     (async () => {
       const session = readSession();
-      if (!session?.phone || !session?.name) {
+      if (!session?.name) {
         setLoading(false);
         return;
       }
@@ -38,25 +37,22 @@ export function useGuest() {
         const loaded = await loginAndLoad(session);
         if (!cancelled) setProgress(loaded);
       } catch (e) {
-        // eslint-disable-next-line no-console
         console.error('Failed to restore session', e);
         writeSession(null);
       } finally {
         if (!cancelled) setLoading(false);
       }
     })();
-    return () => {
-      cancelled = true;
-    };
+    return () => { cancelled = true; };
   }, []);
 
-  const login = useCallback(async ({ phone, name }) => {
+  const login = useCallback(async ({ name }) => {
     setError(null);
     setLoading(true);
     try {
-      const loaded = await loginAndLoad({ phone, name });
-      writeSession({ phone: loaded.phone, name });
-      setProgress({ ...loaded, name });
+      const loaded = await loginAndLoad({ name });
+      writeSession({ name: loaded.name });
+      setProgress(loaded);
     } catch (e) {
       setError(e?.message || 'Login failed.');
       throw e;
@@ -70,24 +66,16 @@ export function useGuest() {
     setProgress(null);
   }, []);
 
-  const advanceStage = useCallback(
-    async (stageId) => {
-      setProgress((prev) => {
-        if (!prev) return prev;
-        const completed = Array.from(new Set([...(prev.completed_stages || []), stageId]));
-        const nextStage = Math.max(prev.current_stage, stageId);
-        const next = {
-          ...prev,
-          completed_stages: completed,
-          current_stage: nextStage,
-        };
-        // fire-and-forget save
-        saveProgress(next).catch((e) => console.error('saveProgress failed', e));
-        return next;
-      });
-    },
-    [],
-  );
+  const advanceStage = useCallback(async (stageId) => {
+    setProgress((prev) => {
+      if (!prev) return prev;
+      const completed = Array.from(new Set([...(prev.completed_stages || []), stageId]));
+      const nextStage = Math.max(prev.current_stage, stageId);
+      const next = { ...prev, completed_stages: completed, current_stage: nextStage };
+      saveProgress(next).catch((e) => console.error('saveProgress failed', e));
+      return next;
+    });
+  }, []);
 
   const finish = useCallback(async () => {
     setProgress((prev) => {
