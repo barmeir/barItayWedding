@@ -12,7 +12,7 @@ function Splash() {
         animate={{ opacity: 1 }}
         className="text-white/70 font-display text-2xl"
       >
-        Loading the quest…
+        טוען את המסע…
       </motion.div>
     </div>
   );

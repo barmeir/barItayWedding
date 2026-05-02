@@ -12,17 +12,18 @@ export default {
         neon: {
           cyan: '#22d3ee',
           magenta: '#f472b6',
-          violet: '#a78bfa',
+          violet: '#c4b5fd',
+          lavender: '#ddd6fe',
           gold: '#fde68a',
         },
       },
       fontFamily: {
-        display: ['"Cormorant Garamond"', 'serif'],
-        sans: ['Inter', 'system-ui', 'sans-serif'],
+        display: ['"Frank Ruhl Libre"', '"Heebo"', 'serif'],
+        sans: ['"Heebo"', 'system-ui', 'sans-serif'],
       },
       boxShadow: {
         glass: '0 8px 32px 0 rgba(31, 38, 135, 0.37)',
-        neon: '0 0 24px rgba(167, 139, 250, 0.45), 0 0 48px rgba(244, 114, 182, 0.25)',
+        neon: '0 0 24px rgba(196, 181, 253, 0.5), 0 0 48px rgba(244, 114, 182, 0.25)',
       },
       backdropBlur: {
         xs: '2px',
@@ -42,7 +43,7 @@ export default {
           '40%, 80%': { transform: 'translateX(8px)' },
         },
         pulseGlow: {
-          '0%, 100%': { boxShadow: '0 0 24px rgba(167, 139, 250, 0.45)' },
+          '0%, 100%': { boxShadow: '0 0 24px rgba(196, 181, 253, 0.5)' },
           '50%': { boxShadow: '0 0 48px rgba(244, 114, 182, 0.65)' },
         },
       },

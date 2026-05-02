@@ -4,7 +4,7 @@ import { ChevronLeft, ChevronRight, Lightbulb, X } from 'lucide-react';
 
 export default function HintModal({ open, onClose, hints = [] }) {
   const [idx, setIdx] = useState(0);
-  const safeHints = hints.length ? hints : ['No hint for this one — trust your gut!'];
+  const safeHints = hints.length ? hints : ['אין רמז לשלב הזה — סמכו על האינטואיציה!'];
   const hint = safeHints[Math.min(idx, safeHints.length - 1)];
 
   return (
@@ -32,16 +32,16 @@ export default function HintModal({ open, onClose, hints = [] }) {
           >
             <button
               onClick={onClose}
-              className="absolute right-3 top-3 rounded-full p-2 text-white/60 hover:bg-white/10 hover:text-white transition"
-              aria-label="Close hint"
+              className="absolute left-3 top-3 rounded-full p-2 text-white/60 hover:bg-white/10 hover:text-white transition"
+              aria-label="סגירת רמז"
             >
               <X className="w-4 h-4" />
             </button>
 
             <div className="flex items-center gap-2 text-neon-gold mb-4">
               <Lightbulb className="w-5 h-5" />
-              <span className="uppercase text-xs tracking-[0.25em]">
-                Hint {idx + 1} / {safeHints.length}
+              <span className="text-xs tracking-[0.25em]">
+                רמז {idx + 1} / {safeHints.length}
               </span>
             </div>
 
@@ -65,14 +65,14 @@ export default function HintModal({ open, onClose, hints = [] }) {
                   onClick={() => setIdx((i) => Math.max(0, i - 1))}
                   disabled={idx === 0}
                 >
-                  <ChevronLeft className="w-4 h-4" /> Prev
+                  <ChevronRight className="w-4 h-4" /> הקודם
                 </button>
                 <button
                   className="btn-ghost"
                   onClick={() => setIdx((i) => Math.min(safeHints.length - 1, i + 1))}
                   disabled={idx === safeHints.length - 1}
                 >
-                  Next <ChevronRight className="w-4 h-4" />
+                  הבא <ChevronLeft className="w-4 h-4" />
                 </button>
               </div>
             )}

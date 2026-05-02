@@ -1,18 +1,18 @@
-// Hardcoded blessing shown on the finale screen.
-// Use {name} as a placeholder for the guest's name.
-export const blessingTemplate = `Dear {name},
+// ברכה קבועה למסך הסיום.
+// משתמשים ב-{name} כמציין-מקום לשם האורח.
+export const blessingTemplate = `ל{name} היקר/ה,
 
-You made it to the end of Bar & Itay's quest.
-Thank you for crossing the sea (and a few riddles)
-to celebrate love on this Cypriot shore.
+הגעתם לסוף המסע של בר ואיתי.
+תודה שחציתם את הים (וכמה חידות)
+כדי לחגוג איתנו את האהבה על החוף הקפריסאי.
 
-May your laughter be loud,
-your heart be soft,
-and your memory of this night last forever.
+שהצחוק יהיה רם,
+הלב רך,
+והזיכרון מהלילה הזה ילווה אתכם לעד.
 
-— With love,
-Bar & Itay`;
+— באהבה,
+בר ואיתי`;
 
 export function renderBlessing(name) {
-  return blessingTemplate.replace(/\{name\}/g, name || 'friend');
+  return blessingTemplate.replace(/\{name\}/g, name || 'חבר/ה');
 }

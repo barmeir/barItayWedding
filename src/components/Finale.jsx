@@ -1,6 +1,7 @@
 import { motion } from 'framer-motion';
 import { Heart, RotateCcw, Sparkles } from 'lucide-react';
 import GlassCard from './GlassCard.jsx';
+import CoupleAvatar from './CoupleAvatar.jsx';
 import { renderBlessing } from '../content/blessing.js';
 
 const CONFETTI = Array.from({ length: 28 }, (_, i) => i);
@@ -27,7 +28,7 @@ export default function Finale({ name, onRestart }) {
             }}
             className="absolute h-2 w-2 rounded-sm"
             style={{
-              background: ['#a78bfa', '#f472b6', '#22d3ee', '#fde68a'][i % 4],
+              background: ['#c4b5fd', '#f472b6', '#22d3ee', '#fde68a', '#ddd6fe'][i % 5],
             }}
           />
         ))}
@@ -39,10 +40,11 @@ export default function Finale({ name, onRestart }) {
         transition={{ duration: 0.6 }}
         className="text-center mb-6"
       >
-        <div className="inline-flex items-center gap-2 text-xs uppercase tracking-[0.3em] text-white/60 mb-3">
-          <Sparkles className="w-3.5 h-3.5" /> The Quest Is Complete
+        <CoupleAvatar size="md" float glow className="mb-4" />
+        <div className="inline-flex items-center gap-2 text-xs tracking-[0.3em] text-white/60 mb-3">
+          <Sparkles className="w-3.5 h-3.5" /> המסע הושלם
         </div>
-        <h1 className="font-display text-5xl leading-tight neon-text">Mazal Tov!</h1>
+        <h1 className="font-display text-5xl leading-tight neon-text">מזל טוב!</h1>
       </motion.div>
 
       <GlassCard strong>
@@ -51,11 +53,11 @@ export default function Finale({ name, onRestart }) {
         </p>
 
         <div className="mt-6 flex items-center justify-center gap-2 text-pink-300/90">
-          <Heart className="w-4 h-4" /> Cyprus · April 26, 2026 <Heart className="w-4 h-4" />
+          <Heart className="w-4 h-4" /> קפריסין · 21 במאי 2026 <Heart className="w-4 h-4" />
         </div>
 
         <button onClick={onRestart} className="btn-ghost mt-6 w-full justify-center">
-          <RotateCcw className="w-4 h-4" /> Sign out
+          <RotateCcw className="w-4 h-4" /> יציאה
         </button>
       </GlassCard>
     </div>

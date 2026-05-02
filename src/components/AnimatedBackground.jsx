@@ -1,10 +1,11 @@
 import { motion } from 'framer-motion';
 
 const BLOBS = [
-  { color: '#a78bfa', x: '5%', y: '10%', size: 380 },
+  { color: '#c4b5fd', x: '5%', y: '10%', size: 380 },
   { color: '#f472b6', x: '70%', y: '20%', size: 320 },
   { color: '#22d3ee', x: '20%', y: '70%', size: 360 },
-  { color: '#fde68a', x: '80%', y: '75%', size: 280 },
+  { color: '#ac8afd', x: '80%', y: '75%', size: 280 },
+  { color: '#ddd6fe', x: '50%', y: '45%', size: 300 },
 ];
 
 export default function AnimatedBackground() {

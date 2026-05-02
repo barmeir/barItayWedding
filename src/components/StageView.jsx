@@ -8,7 +8,7 @@ import { isCorrectAnswer } from '../data/stages.js';
 const ACCENT_RING = {
   cyan: 'shadow-[0_0_36px_rgba(34,211,238,0.45)]',
   magenta: 'shadow-[0_0_36px_rgba(244,114,182,0.45)]',
-  violet: 'shadow-[0_0_36px_rgba(167,139,250,0.45)]',
+  violet: 'shadow-[0_0_36px_rgba(196,181,253,0.55)]',
   gold: 'shadow-[0_0_36px_rgba(253,230,138,0.45)]',
 };
 
@@ -47,9 +47,9 @@ export default function StageView({ stage, onCorrect, onWrong }) {
         transition={{ duration: 0.5, ease: 'easeOut' }}
       >
         <GlassCard strong className={`relative overflow-hidden ${accent}`}>
-          <div className="flex items-center gap-2 mb-4 text-white/60 text-xs uppercase tracking-[0.3em]">
+          <div className="flex items-center gap-2 mb-4 text-white/60 text-xs tracking-[0.3em]">
             <Sparkles className="w-3.5 h-3.5" />
-            Stage {stage.id} of 12
+            שלב {stage.id} מתוך 12
           </div>
 
           <h2 className="font-display text-3xl sm:text-4xl text-white mb-4">
@@ -69,7 +69,7 @@ export default function StageView({ stage, onCorrect, onWrong }) {
               autoCapitalize="off"
               spellCheck="false"
               className="input-glass text-lg"
-              placeholder="Your answer…"
+              placeholder="התשובה שלכם…"
               value={value}
               onChange={(e) => setValue(e.target.value)}
             />
@@ -81,11 +81,11 @@ export default function StageView({ stage, onCorrect, onWrong }) {
                 onClick={() => setHintOpen(true)}
               >
                 <Lightbulb className="w-4 h-4" />
-                Need a hint?
+                צריכים רמז?
               </button>
 
               <button type="submit" className="btn-primary" disabled={!value.trim()}>
-                Submit <ArrowRight className="w-4 h-4" />
+                <ArrowRight className="w-4 h-4 rotate-180" /> שליחה
               </button>
             </div>
           </form>

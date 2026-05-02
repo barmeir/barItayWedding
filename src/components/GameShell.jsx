@@ -5,14 +5,15 @@ import StageView from './StageView.jsx';
 import MemoryOverlay from './MemoryOverlay.jsx';
 import Finale from './Finale.jsx';
 import Toast from './Toast.jsx';
+import CoupleAvatar from './CoupleAvatar.jsx';
 import { stages } from '../data/stages.js';
 
 const WRONG_MESSAGES = [
-  'Not quite — try again ✨',
-  'Hmm, the stars say no.',
-  'Close, but the riddle is still asleep.',
-  'Take another look around.',
-  'Almost! Trust your gut.',
+  'לא בדיוק — נסו שוב ✨',
+  'הממ... הכוכבים אומרים לא.',
+  'קרוב, אבל החידה עדיין ישנה.',
+  'תסתכלו סביב שוב.',
+  'כמעט! סמכו על האינטואיציה.',
 ];
 
 export default function GameShell({ progress, onLogout, onAdvance, onFinish }) {
@@ -62,15 +63,18 @@ export default function GameShell({ progress, onLogout, onAdvance, onFinish }) {
     <div className="relative mx-auto flex min-h-[100dvh] max-w-md flex-col px-5 py-6">
       {/* Header */}
       <div className="flex items-center justify-between mb-5">
-        <div>
-          <p className="text-xs uppercase tracking-[0.3em] text-white/50">Hi {progress.name},</p>
-          <p className="font-display text-xl text-white">your quest awaits</p>
+        <div className="flex items-center gap-3">
+          <CoupleAvatar size="sm" />
+          <div>
+            <p className="text-xs tracking-[0.3em] text-white/50">שלום {progress.name},</p>
+            <p className="font-display text-xl text-white">המסע שלך ממתין</p>
+          </div>
         </div>
         <button
           onClick={onLogout}
           className="btn-ghost"
-          aria-label="Sign out"
-          title="Sign out"
+          aria-label="יציאה"
+          title="יציאה"
         >
           <LogOut className="w-4 h-4" />
         </button>
@@ -80,7 +84,7 @@ export default function GameShell({ progress, onLogout, onAdvance, onFinish }) {
       <div className="mb-6">
         <div className="flex items-center justify-between text-xs text-white/60 mb-2">
           <span>
-            {completedCount}/{totalStages} unlocked
+            {completedCount} מתוך {totalStages}
           </span>
           <span>{pct}%</span>
         </div>
@@ -91,7 +95,7 @@ export default function GameShell({ progress, onLogout, onAdvance, onFinish }) {
             transition={{ type: 'spring', stiffness: 110, damping: 24 }}
             className="h-full rounded-full"
             style={{
-              background: 'linear-gradient(90deg, #22d3ee, #a78bfa, #f472b6)',
+              background: 'linear-gradient(90deg, #22d3ee, #c4b5fd, #ddd6fe, #f472b6)',
             }}
           />
         </div>

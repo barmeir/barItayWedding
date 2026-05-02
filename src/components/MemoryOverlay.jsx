@@ -3,10 +3,10 @@ import { AnimatePresence, motion } from 'framer-motion';
 import { Sparkles } from 'lucide-react';
 
 const ACCENT_GRADIENTS = {
-  cyan: 'from-cyan-400/40 via-sky-400/20 to-violet-500/40',
-  magenta: 'from-pink-400/40 via-fuchsia-400/20 to-violet-500/40',
-  violet: 'from-violet-400/40 via-indigo-400/20 to-fuchsia-500/40',
-  gold: 'from-amber-300/40 via-pink-300/20 to-violet-500/40',
+  cyan: 'from-cyan-300/40 via-sky-300/20 to-violet-300/40',
+  magenta: 'from-pink-300/40 via-fuchsia-300/20 to-violet-300/40',
+  violet: 'from-violet-200/50 via-purple-200/30 to-fuchsia-300/40',
+  gold: 'from-amber-200/40 via-pink-200/20 to-violet-300/40',
 };
 
 function Fallback({ accent = 'violet', title }) {
@@ -17,7 +17,7 @@ function Fallback({ accent = 'violet', title }) {
       <div className="text-center">
         <Sparkles className="mx-auto mb-3 h-10 w-10 text-white/80" />
         <p className="font-display text-3xl text-white/90">{title}</p>
-        <p className="mt-2 text-xs text-white/50">(memory image coming soon)</p>
+        <p className="mt-2 text-xs text-white/50">(התמונה תוצג בקרוב)</p>
       </div>
     </div>
   );
@@ -70,8 +70,8 @@ export default function MemoryOverlay({ stage, open, onContinue }) {
                 transition={{ delay: 0.4, duration: 0.6 }}
                 className="absolute inset-x-0 bottom-0 p-6"
               >
-                <p className="text-xs uppercase tracking-[0.3em] text-white/70">
-                  Stage {stage.id} unlocked
+                <p className="text-xs tracking-[0.3em] text-white/70">
+                  שלב {stage.id} נפתח
                 </p>
                 <h2 className="mt-1 font-display text-3xl text-white">
                   {stage.title}
@@ -84,7 +84,7 @@ export default function MemoryOverlay({ stage, open, onContinue }) {
 
             <div className="p-5">
               <button onClick={onContinue} className="btn-primary w-full">
-                Continue
+                להמשיך
               </button>
             </div>
           </motion.div>
