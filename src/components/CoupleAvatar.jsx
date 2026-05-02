@@ -49,7 +49,7 @@ export default function CoupleAvatar({
 
        {/* תמונה שלנו בחתונה של דנה */}
       <img
-        src="/images/couple3.png"
+        src="images/couple3.png"
         alt="בר ואיתי"
         loading="eager"
         className="h-full w-full object-cover scale-105"
@@ -57,7 +57,7 @@ export default function CoupleAvatar({
 
       {/* תמונה שלנו בלבן 
       <img
-        src="/images/couple2.1.png"
+        src="images/couple2.1.png"
         alt="בר ואיתי"
         loading="eager"
         className="h-full w-full object-cover scale-110"
