@@ -41,7 +41,7 @@ export default function LoginScreen({ onLogin, loading, error }) {
       >
         <CoupleAvatar size="lg" float glow className="mb-5" />
         <div className="inline-flex items-center gap-2 text-xs tracking-[0.3em] text-white/60 mb-3">
-          <Heart className="w-3.5 h-3.5" /> קפריסין · אפריל 2026
+          <Heart className="w-3.5 h-3.5" /> קפריסין · מאי 2026
         </div>
         <h1 className="font-display text-5xl sm:text-6xl leading-tight neon-text">
           מסע חידות החתונה
