@@ -4,7 +4,7 @@ import { Heart, KeyRound, User } from 'lucide-react';
 import GlassCard from './GlassCard.jsx';
 import CoupleAvatar from './CoupleAvatar.jsx';
 
-const EXPECTED_PASSWORD = (import.meta.env.VITE_LOGIN_PASSWORD || 'meir').toLowerCase();
+const EXPECTED_PASSWORD = (import.meta.env.VITE_LOGIN_PASSWORD || 'meir' || 'Meir' || 'MEIR').toLowerCase();
 
 export default function LoginScreen({ onLogin, loading, error }) {
   const [name, setName] = useState('');
@@ -71,7 +71,7 @@ export default function LoginScreen({ onLogin, loading, error }) {
               <KeyRound className="w-3.5 h-3.5" /> סיסמה
             </label>
             <input
-              type="password"
+              type="text"
               autoComplete="current-password"
               className="input-glass"
               placeholder="••••"
@@ -80,7 +80,7 @@ export default function LoginScreen({ onLogin, loading, error }) {
               required
             />
             <p className="mt-2 text-xs italic text-white/50">
-              רמז: שם המשפחה של הכלה באנגלית קטנה.
+              רמז: שם המשפחה של הכלה.
             </p>
           </div>
 
