@@ -66,12 +66,15 @@ export function useGuest() {
     setProgress(null);
   }, []);
 
-  const advanceStage = useCallback(async (stageId) => {
+  const advanceStage = useCallback(async (stageIdx) => {
     setProgress((prev) => {
       if (!prev) return prev;
-      const completed = Array.from(new Set([...(prev.completed_stages || []), stageId]));
-      const nextStage = Math.max(prev.current_stage, stageId);
-      const next = { ...prev, completed_stages: completed, current_stage: nextStage };
+      const completed = Array.from(new Set([...(prev.completed_stages || []), stageIdx]));
+      const next = {
+        ...prev,
+        completed_stages: completed,
+        current_stage: Math.max(prev.current_stage, stageIdx + 1),
+      };
       saveProgress(next).catch((e) => console.error('saveProgress failed', e));
       return next;
     });

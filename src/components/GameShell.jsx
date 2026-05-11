@@ -62,7 +62,7 @@ export default function GameShell({ progress, onLogout, onAdvance, onFinish, onB
     setOverlayStage(null);
     if (!justFinished) return;
     if (isViewingActive) {
-      await onAdvance(justFinished.id);
+      await onAdvance(viewIdx);
     } else {
       setViewIdx((v) => Math.min(v + 1, currentIdx));
     }
