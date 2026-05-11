@@ -62,15 +62,13 @@ export default function HintModal({ open, onClose, hints = [] }) {
               <div className="mt-6 flex items-center justify-between">
                 <button
                   className="btn-ghost"
-                  onClick={() => setIdx((i) => Math.max(0, i - 1))}
-                  disabled={idx === 0}
+                  onClick={() => setIdx((i) => (i - 1 + safeHints.length) % safeHints.length)}
                 >
                   <ChevronRight className="w-4 h-4" /> הקודם
                 </button>
                 <button
                   className="btn-ghost"
-                  onClick={() => setIdx((i) => Math.min(safeHints.length - 1, i + 1))}
-                  disabled={idx === safeHints.length - 1}
+                  onClick={() => setIdx((i) => (i + 1) % safeHints.length)}
                 >
                   הבא <ChevronLeft className="w-4 h-4" />
                 </button>
