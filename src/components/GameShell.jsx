@@ -10,10 +10,10 @@ import { stages } from '../data/stages.js';
 
 const WRONG_MESSAGES = [
   'לא בדיוק — נסו שוב ✨',
-  'הממ... הכוכבים אומרים לא.',
-  'קרוב, אבל החידה עדיין ישנה.',
-  'תסתכלו סביב שוב.',
+  'קרוב, נסו את הרמז.',
+  ' אתם בטוחים?',
   'כמעט! סמכו על האינטואיציה.',
+    'הממ... הכוכבים אומרים שלא.',
 ];
 
 export default function GameShell({ progress, onLogout, onAdvance, onFinish, onBackToVideo }) {
