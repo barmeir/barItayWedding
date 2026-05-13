@@ -53,7 +53,7 @@ export default function Finale({ name, onRestart }) {
         </p>
 
         <div className="mt-6 flex items-center justify-center gap-2 text-pink-300/90">
-          <Heart className="w-4 h-4" /> קפריסין · 21 במאי 2026 <Heart className="w-4 h-4" />
+          <Heart className="w-4 h-4" /> קפריסין · 21-23 מאי 2026 <Heart className="w-4 h-4" />
         </div>
 
         <button onClick={onRestart} className="btn-ghost mt-6 w-full justify-center">

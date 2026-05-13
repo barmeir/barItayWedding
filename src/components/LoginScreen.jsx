@@ -20,7 +20,7 @@ export default function LoginScreen({ onLogin, loading, error }) {
       return;
     }
     if (password.trim().toLowerCase() !== EXPECTED_PASSWORD) {
-      setLocalError('הסיסמה לא מתאימה. נסו שוב ✨');
+      setLocalError('המילה לא מתאימה. נסו שוב ✨');
       return;
     }
 
@@ -80,7 +80,7 @@ export default function LoginScreen({ onLogin, loading, error }) {
               required
             />
             <p className="mt-2 text-xs italic text-white/50">
-              רמז: שם המשפחה של הכלה.
+              רמז: שם המשפחה של הכלה באנגלית.
             </p>
           </div>
 
