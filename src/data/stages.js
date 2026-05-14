@@ -14,12 +14,14 @@ export const stages = [
 
  'נסו להשתמש בראש...\nביצירתיות.',
 
-      'בכל הרמזים כאן למטה.\n< לא להעתיק 😏>\nנסו לבד לפני שתעזרו באדם אחר, זה ממש כיף!!',
+      'בכל הרמזים כאן למטה.\n< לא להעתיק, קחו את הזמן 😏>\nנסו לבד לפני שתעזרו באדם אחר, זה ממש כיף!!',
       'המשחק הוא בהמשכים. \nאם תצאו מהאתר,\nזה שומר את השלבים ✅ ותמשיכו גם מחר',
       'אם נתקעתם, הכל בסדר\nשאלו אותנו.\n 🤍',
 
     ],
     caption: 'משחק חידות בהמשכים 💌',
+    image: 'images/stage-00.jpg',
+
     accent: 'magenta',
   }, 
 
@@ -66,7 +68,7 @@ export const stages = [
       'טבעוני טעים.',
       'בר התחילה עם איתי.',
     ],
-    image: 'images/stage-03.jpg',
+    image: 'images/stage-001.png',
     caption: 'כל סיפור טוב מתחיל בצעד קטן',
     accent: 'cyan',
   },
@@ -86,7 +88,7 @@ export const stages = [
       'חפשו את הקוד בתוך המעטפה בחדר.',
       'מספר בסדרה עולה.',
     ],
-    image: 'images/stage-05.jpg',
+    image: 'images/stage-003.jpg',
     caption: 'אחד מכם מסתיר מידע 🤫',
     accent: 'violet',
   },
@@ -101,7 +103,7 @@ export const stages = [
       'גלימה, מסכה שחורה .',
       'וקו רקע אפלולי .',
     ],
-    image: 'images/stage-06.png',
+    image: 'images/stage-10.jpg',
     caption: 'לכבוד שומר הלילה 🦇',
     accent: 'violet',
   },
@@ -119,7 +121,7 @@ export const stages = [
       'אפשר למצוא אותי בחווה או... פשוט ביפו .',
       'אני לא יונה .',
     ],
-    image: 'images/stage-11.jpg',
+    image: 'images/stage-003.jpg',
     caption: '🐔 באים איתכם לקליפורניה🐔',
     accent: 'magenta',
   },
@@ -134,7 +136,7 @@ export const stages = [
       'כל הקומה התחתונה היא טיילת משפחתית ',
       'מספר של הוילה שלנו',
     ],
-    image: 'images/stage-08.jpg',
+    image: 'images/couple3.png',
     caption: 'בואו לוילה!',
     accent: 'magenta',
   },
@@ -153,7 +155,7 @@ export const stages = [
       'הספה שלכם .',
       'הגינה שלכם .',
     ],
-    image: 'images/stage-04.png',
+    image: 'images/stage-03.png',
     caption: 'Friday Golden hour 🔓',
     accent: 'gold',
   },
@@ -176,7 +178,7 @@ export const stages = [
       'בדייט החמישי שלנו היינו בטיול בצפון',
       'קודם כל פיצה! אח״כ נדבר...',
     ],
-    image: 'images/stage-07.jpg',
+    image: 'images/stage-09.jpg',
     caption: 'תמונה ששווה אלף מזל טוב 📸',
     accent: 'gold',
   },
@@ -185,7 +187,7 @@ export const stages = [
     id: 9,
     title: 'אתם מתקדמים אל האוצר💎',
     riddle:
-    `* מי נרדם ראשון?
+    `* מי שוכח דברים?
 * מי תמיד רעב?
 * מי אשף החידות?
 * מי יכול לסוע לכל מקום ללא וויז ותגיע בוודאות?
@@ -200,7 +202,7 @@ export const stages = [
       '__אבא.',
       'נתקעתם בדרך? תאשימו את זו שמעולה בכיוונים.',
     ],
-    image: 'images/stage-09.png',
+    image: 'images/stage-01.jpg',
     caption: 'אתם מעולים שהגעתם עד לכאן!\n     וגם כי לקח הרבה זמן לפתח את האתר 😅',
     accent: 'cyan',
   },
@@ -215,7 +217,7 @@ export const stages = [
       'המספר הוא תאריך חשוב בשבילנו.',
     'תאריך חשוב בחודש אוקטובר.'
     ],
-    image: 'images/stage-10.jpg',
+    image: 'images/20220614_173645.jpg',
     caption: 'עשו סלפי אישי עם הרקע של הים ושלחו לנו!📸',
     accent: 'violet',
   },
@@ -232,7 +234,7 @@ export const stages = [
       'אין מצב שזו אותה הסבתא... .',
       'זה רק השם של הסבתא .',
     ],
-    image: 'images/stage-12.png',
+    image: 'images/stage-11.png',
     caption: 'שיהיה לכולנו במזל טוב! 🍀',
     accent: 'gold',
   },
@@ -242,28 +244,28 @@ export const stages = [
     title: 'ביום יום',
     riddle:
       'מה המילה הכי נפוצה שבר אומרת בכל יום?',
-    answers: ['אופס', 'שיט','אופסי'],
+    answers: ['אופס', 'שיט','אופסי','איה'],
     hints: [
       'אומרים כשמשהו נופל או משתבש.',
       'לפעמים זה מצחיק',
       '״לא נורא..״',
       'שיט',
-       'או אופסי זאת המילה',
+       'איה',
        'אופס ☺️',
     ],
-    image: 'images/stage-14.jpg',
+    image: 'images/stage-08.jpg',
     caption: 'זה משעשע.. באמת. ✨',
     accent: 'cyan',
   },
     {
     id: 13,
     type: 'form',
-    title: 'מתנה אחרונה לזוג',
+    title: 'מתנה אחרונה ל',
     riddle:
       'הגעתם עד הסוף — כל הכבוד! 🎉\nהאוצר האמיתי הם המשפחה, החברים והאנשים שנמצאים איתכם.\n תודה שבאתם לחופשה הזו! \nבבקשה שימו פתק הצבעה- בלינק הבא: \n (אחריו לחצו על ״סיימתי״ כאן באתר)',
     formUrl:
       'https://docs.google.com/forms/d/e/1FAIpQLScf41hN50--g1WED-u3_KahyRgmCSNhZZRzQwt3DSiWqu6ilQ/viewform?usp=publish-editor',
-    image: 'images/stage-13.png',
+    image: 'images/IMG_20211121_174531.jpg',
     caption: 'תודה שהיית חלק מהסיפור 💌',
     accent: 'magenta',
   },

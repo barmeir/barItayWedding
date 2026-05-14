@@ -9,6 +9,51 @@ const ACCENT_GRADIENTS = {
   gold: 'from-amber-200/40 via-pink-200/20 to-violet-300/40',
 };
 
+// Subtle "ken burns" variants. Each stage gets one deterministically by id.
+const IMAGE_ANIMATIONS = [
+  // 0: gentle zoom-in
+  {
+    initial: { scale: 1.15 },
+    animate: { scale: 1.02 },
+    transition: { duration: 3, ease: 'easeOut' },
+  },
+  // 1: pan left→right with zoom-out
+  {
+    initial: { scale: 1.18, x: '-3%' },
+    animate: { scale: 1.04, x: '3%' },
+    transition: { duration: 4, ease: 'easeOut' },
+  },
+  // 2: pan right→left with zoom-out
+  {
+    initial: { scale: 1.18, x: '3%' },
+    animate: { scale: 1.04, x: '-3%' },
+    transition: { duration: 4, ease: 'easeOut' },
+  },
+  // 3: vertical drift down with zoom-out
+  {
+    initial: { scale: 1.18, y: '-3%' },
+    animate: { scale: 1.05, y: '3%' },
+    transition: { duration: 4, ease: 'easeOut' },
+  },
+  // 4: slight tilt + zoom
+  {
+    initial: { scale: 1.2, rotate: -1.5 },
+    animate: { scale: 1.04, rotate: 0 },
+    transition: { duration: 3, ease: 'easeOut' },
+  },
+  // 5: diagonal pan
+  {
+    initial: { scale: 1.22, x: '-3%', y: '-2%' },
+    animate: { scale: 1.05, x: '2%', y: '2%' },
+    transition: { duration: 4, ease: 'easeOut' },
+  },
+];
+
+function pickAnimation(stage) {
+  const key = typeof stage?.id === 'number' ? stage.id : 0;
+  return IMAGE_ANIMATIONS[Math.abs(key) % IMAGE_ANIMATIONS.length];
+}
+
 function Fallback({ accent = 'violet', title }) {
   return (
     <div
@@ -60,12 +105,11 @@ export default function MemoryOverlay({ stage, open, onContinue, onBack }) {
             <div className="relative aspect-[4/5] w-full overflow-hidden">
               {stage.image && !imageBroken ? (
                 <motion.img
+                  key={stage.id}
                   src={stage.image}
                   alt={stage.title}
                   className="h-full w-full object-cover"
-                  initial={{ scale: 1.1 }}
-                  animate={{ scale: 1 }}
-                  transition={{ duration: 1.2, ease: 'easeOut' }}
+                  {...pickAnimation(stage)}
                   onError={() => setImageBroken(true)}
                 />
               ) : (

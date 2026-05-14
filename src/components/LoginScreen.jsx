@@ -68,7 +68,7 @@ export default function LoginScreen({ onLogin, loading, error }) {
 
           <div>
             <label className="text-xs tracking-widest text-white/60 mb-2 flex items-center gap-2">
-              <KeyRound className="w-3.5 h-3.5" /> סיסמה
+              <KeyRound className="w-3.5 h-3.5" /> מילת קוד
             </label>
             <input
               type="text"
